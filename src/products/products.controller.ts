@@ -9,22 +9,15 @@ import {
 } from '@nestjs/common';
 
 import { ProductsService } from './products.service';
+import { Product } from './product.model';
 
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Post()
-  addProduct(
-    @Body('title') prodTitle: string,
-    @Body('description') prodDesc: string,
-    @Body('price') prodPrice: number,
-  ) {
-    const generatedId = this.productsService.insertProduct(
-      prodTitle,
-      prodDesc,
-      prodPrice,
-    );
+  async addProduct(@Body() product: Product ) {
+    const generatedId = await this.productsService.insertProduct(product);
     return { id: generatedId };
   }
 
