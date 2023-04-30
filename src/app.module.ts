@@ -6,7 +6,7 @@ import { ProductsModule } from './products/products.module';
 
 @Module({
   imports: [ProductsModule, MongooseModule.forRoot(
-    'mongodb+srv://ngie-mp:YMj9krjumtUKLjFO@Cluster0.evnyq1j.mongodb.net/?retryWrites=true&w=majority',
+    'mongodb+srv://ngie-mp:YMj9krjumtUKLjFO@Cluster0.evnyq1j.mongodb.net/nestjs-app?retryWrites=true&w=majority',
     { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }
     )],
   controllers: [AppController],

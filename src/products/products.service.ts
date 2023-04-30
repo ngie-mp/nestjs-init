@@ -13,14 +13,13 @@ export class ProductsService {
   async insertProduct(product: Product) {
     console.log('before new/saving', product)
     const newProduct = new this.productModel(product);
-    console.log('new product', newProduct);
     const result = await newProduct.save();
-    console.log('service', product, 'result', result);
     return result.id as string;
   }
 
   async getProducts() {
     const products = await this.productModel.find().exec();
+    // return products as Product[];
     return products.map(prod => ({
       id: prod.id,
       title: prod.title,
@@ -55,14 +54,14 @@ export class ProductsService {
     if (price) {
       updatedProduct.price = price;
     }
-    // updatedProduct.save();
+    updatedProduct.save();
   }
 
   async deleteProduct(prodId: string) {
-    // const result = await this.productModel.deleteOne({_id: prodId}).exec();
-    // if (result.n === 0) {
-    //   throw new NotFoundException('Could not find product.');
-    // }
+    const result = await this.productModel.deleteOne({_id: prodId}).exec();
+    if (result.n === 0) {
+      throw new NotFoundException('Could not find product.');
+    }
   }
 
   private async findProduct(id: string): Promise<Product> {
